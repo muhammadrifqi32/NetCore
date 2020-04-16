@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetCore.Base;
 using NetCore.Models;
 using NetCore.Repositories.Data;
+using NetCore.ViewModels;
 
 namespace NetCore.Controllers
 {
@@ -20,41 +21,83 @@ namespace NetCore.Controllers
             this._repository = employeeRepository;
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Employee>> Put(int id, Employee entity)
+        [HttpGet]
+        [Route("GetAll")]
+        public Task<IEnumerable<EmployeeVM>> GetAll()
         {
-            var put = await _repository.Get(id);
-            if (put == null)
-            {
-                return NotFound();
-            }
-            if (entity.FirstName != null)
-            {
-                put.FirstName = entity.FirstName;
-            }
-            if (entity.LastName != null)
-            {
-                put.LastName = entity.LastName;
-            }
-            if (entity.Email != null)
-            {
-                put.Email = entity.Email;
-            }
-            if (entity.Address != null)
-            {
-                put.Address = entity.Address;
-            }
-            if (entity.BirthDate != default(DateTime))
-            {
-                put.BirthDate = entity.BirthDate;
-            }
-            if (entity.Address != null)
-            {
-                put.Address = entity.Address;
-            }
-            put.UpdateDate = DateTime.Now;
-            await _repository.Put(put);
-            return Ok("Succesfully Updated Data");
+            return _repository.GetAll();
         }
+
+        [HttpGet("GetById/{id}")]
+        public async Task<IEnumerable<EmployeeVM>> GetById(int id)
+        {
+            return await _repository.GetById(id);
+        }
+
+        [HttpPost]
+        [Route("Post")]
+        public IActionResult Post(EmployeeVM employeeVM)
+        {
+            var post = _repository.Post(employeeVM);
+            if (post > 1)
+            {
+
+                return Ok("Employee Succesfully Added");
+            }
+            return BadRequest("Failed to Added New Data!");
+        }
+
+        [HttpPut]
+        [Route("Update/{id}")]
+        public IActionResult Update(int Id, EmployeeVM employeeVM)
+        {
+            var put = _repository.Update(Id, employeeVM);
+            if (put > 0)
+            {
+                return Ok("Data Succesfully Updated");
+            }
+            return BadRequest("Failed to Updated Data!");
+        }
+
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<EmployeeVM>> Put(int id, EmployeeVM employeeVM)
+        //{
+        //    var put = await _repository.Get(id);
+        //    if (put == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    if (employeeVM.FirstName != null)
+        //    {
+        //        put.FirstName = employeeVM.FirstName;
+        //    }
+        //    if (employeeVM.LastName != null)
+        //    {
+        //        put.LastName = employeeVM.LastName;
+        //    }
+        //    if (employeeVM.Email != null)
+        //    {
+        //        put.Email = employeeVM.Email;
+        //    }
+        //    if (employeeVM.Address != null)
+        //    {
+        //        put.Address = employeeVM.Address;
+        //    }
+        //    if (employeeVM.BirthDate != default(DateTime))
+        //    {
+        //        put.BirthDate = employeeVM.BirthDate;
+        //    }
+        //    if (employeeVM.Address != null)
+        //    {
+        //        put.Address = employeeVM.Address;
+        //    }
+        //    if (employeeVM.DeptId != 0)
+        //    {
+        //        put.Department_Id = employeeVM.DeptId;
+        //    }
+        //    put.UpdateDate = DateTime.Now;
+        //    await _repository.Update(put);
+        //    return Ok("Succesfully Updated Data");
+        //}
     }
 }
