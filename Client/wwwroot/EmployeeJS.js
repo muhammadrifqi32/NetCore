@@ -12,12 +12,17 @@ $(document).ready(function () {
         },
         "columnDefs":
             [{
-                "targets": [3],
+                "targets": [0, 9],
                 "orderable": false
             }],
+        "order": [[0, 'asc']],
         "columns": [
-            { "data": "firstName" },
-            { "data": "lastName" },
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1 + "."
+                }
+            },
+            { "data": "name" },
             { "data": "email" },
             {
                 "data": "birthDate", "render": function (data) {
@@ -50,6 +55,11 @@ $(document).ready(function () {
                 }
             }]
     });
+    table.on('order.dt search.dt', function () {
+        table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
 });
 
 function ClearScreen() {
@@ -91,7 +101,7 @@ function renderDepartment(element) {
     $ele.empty();
     $ele.append($('<option/>').val('0').text('Select Department').hide());
     $.each(Departments, function (i, val) {
-    //$.each(Departments.data, function (i, val) {
+        //$.each(Departments.data, function (i, val) {
         //debugger;
         $ele.append($('<option/>').val(val.id).text(val.name));
     })
