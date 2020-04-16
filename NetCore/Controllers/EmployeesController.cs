@@ -34,70 +34,70 @@ namespace NetCore.Controllers
             return await _repository.GetById(id);
         }
 
-        [HttpPost]
-        [Route("Post")]
-        public IActionResult Post(EmployeeVM employeeVM)
-        {
-            var post = _repository.Post(employeeVM);
-            if (post > 1)
-            {
-
-                return Ok("Employee Succesfully Added");
-            }
-            return BadRequest("Failed to Added New Data!");
-        }
-
-        [HttpPut]
-        [Route("Update/{id}")]
-        public IActionResult Update(int Id, EmployeeVM employeeVM)
-        {
-            var put = _repository.Update(Id, employeeVM);
-            if (put > 0)
-            {
-                return Ok("Data Succesfully Updated");
-            }
-            return BadRequest("Failed to Updated Data!");
-        }
-
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<EmployeeVM>> Put(int id, EmployeeVM employeeVM)
+        //[HttpPost]
+        //[Route("Post")]
+        //public IActionResult Post(EmployeeVM employeeVM)
         //{
-        //    var put = await _repository.Get(id);
-        //    if (put == null)
+        //    var post = _repository.Post(employeeVM);
+        //    if (post > 1)
         //    {
-        //        return NotFound();
+
+        //        return Ok("Employee Succesfully Added");
         //    }
-        //    if (employeeVM.FirstName != null)
-        //    {
-        //        put.FirstName = employeeVM.FirstName;
-        //    }
-        //    if (employeeVM.LastName != null)
-        //    {
-        //        put.LastName = employeeVM.LastName;
-        //    }
-        //    if (employeeVM.Email != null)
-        //    {
-        //        put.Email = employeeVM.Email;
-        //    }
-        //    if (employeeVM.Address != null)
-        //    {
-        //        put.Address = employeeVM.Address;
-        //    }
-        //    if (employeeVM.BirthDate != default(DateTime))
-        //    {
-        //        put.BirthDate = employeeVM.BirthDate;
-        //    }
-        //    if (employeeVM.Address != null)
-        //    {
-        //        put.Address = employeeVM.Address;
-        //    }
-        //    if (employeeVM.DeptId != 0)
-        //    {
-        //        put.Department_Id = employeeVM.DeptId;
-        //    }
-        //    put.UpdateDate = DateTime.Now;
-        //    await _repository.Update(put);
-        //    return Ok("Succesfully Updated Data");
+        //    return BadRequest("Failed to Added New Data!");
         //}
+
+        //[HttpPut]
+        //[Route("Update/{id}")]
+        //public IActionResult Update(int Id, EmployeeVM employeeVM)
+        //{
+        //    var put = _repository.Update(Id, employeeVM);
+        //    if (put > 0)
+        //    {
+        //        return Ok("Data Succesfully Updated");
+        //    }
+        //    return BadRequest("Failed to Updated Data!");
+        //}
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<EmployeeVM>> Put(int id, EmployeeVM employeeVM)
+        {
+            var put = await _repository.Get(id);
+            if (put == null)
+            {
+                return NotFound();
+            }
+            if (employeeVM.FirstName != null)
+            {
+                put.FirstName = employeeVM.FirstName;
+            }
+            if (employeeVM.LastName != null)
+            {
+                put.LastName = employeeVM.LastName;
+            }
+            if (employeeVM.Email != null)
+            {
+                put.Email = employeeVM.Email;
+            }
+            if (employeeVM.Address != null)
+            {
+                put.Address = employeeVM.Address;
+            }
+            if (employeeVM.BirthDate != default(DateTime))
+            {
+                put.BirthDate = employeeVM.BirthDate;
+            }
+            if (employeeVM.Address != null)
+            {
+                put.Address = employeeVM.Address;
+            }
+            if (employeeVM.Department_Id != 0)
+            {
+                put.Department_Id = employeeVM.Department_Id;
+            }
+            put.UpdateDate = DateTime.Now;
+            await _repository.Put(put);
+            return Ok("Succesfully Updated Data");
+        }
     }
 }

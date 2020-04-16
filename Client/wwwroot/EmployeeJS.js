@@ -162,7 +162,7 @@ function Save() {
         Employee.birthDate = $('#birthdate').val();
         Employee.phoneNumber = $('#phone').val();
         Employee.address = $('#address').val();
-        Employee.deptId = $('#Department').val();
+        Employee.department_Id = $('#Department').val();
         $.ajax({
             type: 'POST',
             url: '/Employees/InsertOrUpdate/',
@@ -218,7 +218,7 @@ function Update() {
     Employee.birthDate = $('#birthdate').val();
     Employee.phoneNumber = $('#phone').val();
     Employee.address = $('#address').val();
-    Employee.deptId = $('#Department').val();
+    Employee.department_Id = $('#Department').val();
     $.ajax({
         type: "POST",
         url: '/Employees/InsertOrUpdate/',

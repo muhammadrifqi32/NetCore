@@ -46,41 +46,41 @@ namespace NetCore.Repositories.Data
             }
         }
 
-        public int Post(EmployeeVM employeeVM)
-        {
-            using (var connection = new SqlConnection(_configuration.GetConnectionString("MyNetCoreConnection")))
-            {
-                var procName = "SP_InsertEmployee";
-                parameters.Add("@FirstName", employeeVM.FirstName);
-                parameters.Add("@LastName", employeeVM.LastName);
-                parameters.Add("@Email", employeeVM.Email);
-                parameters.Add("@Birthdate", employeeVM.BirthDate);
-                parameters.Add("@PhoneNumber", employeeVM.PhoneNumber);
-                parameters.Add("@Address", employeeVM.Address);
-                parameters.Add("@DeptId", employeeVM.DeptId);
+        //public int Post(EmployeeVM employeeVM)
+        //{
+        //    using (var connection = new SqlConnection(_configuration.GetConnectionString("MyNetCoreConnection")))
+        //    {
+        //        var procName = "SP_InsertEmployee";
+        //        parameters.Add("@FirstName", employeeVM.FirstName);
+        //        parameters.Add("@LastName", employeeVM.LastName);
+        //        parameters.Add("@Email", employeeVM.Email);
+        //        parameters.Add("@Birthdate", employeeVM.BirthDate);
+        //        parameters.Add("@PhoneNumber", employeeVM.PhoneNumber);
+        //        parameters.Add("@Address", employeeVM.Address);
+        //        parameters.Add("@DeptId", employeeVM.Department_Id);
 
-                var create = connection.Execute(procName, parameters, commandType: CommandType.StoredProcedure);
-                return create;
-            }
-        }
+        //        var create = connection.Execute(procName, parameters, commandType: CommandType.StoredProcedure);
+        //        return create;
+        //    }
+        //}
 
-        public int Update(int Id, EmployeeVM employeeVM)
-        {
-            using (var connection = new SqlConnection(_configuration.GetConnectionString("MyNetCoreConnection")))
-            {
-                var procName = "SP_UpdateEmployee";
-                parameters.Add("@id", Id);
-                parameters.Add("@FirstName", employeeVM.FirstName);
-                parameters.Add("@LastName", employeeVM.LastName);
-                parameters.Add("@Email", employeeVM.Email);
-                parameters.Add("@Birthdate", employeeVM.BirthDate);
-                parameters.Add("@PhoneNumber", employeeVM.PhoneNumber);
-                parameters.Add("@Address", employeeVM.Address);
-                parameters.Add("@DeptId", employeeVM.DeptId);
+        //public int Update(int Id, EmployeeVM employeeVM)
+        //{
+        //    using (var connection = new SqlConnection(_configuration.GetConnectionString("MyNetCoreConnection")))
+        //    {
+        //        var procName = "SP_UpdateEmployee";
+        //        parameters.Add("@id", Id);
+        //        parameters.Add("@FirstName", employeeVM.FirstName);
+        //        parameters.Add("@LastName", employeeVM.LastName);
+        //        parameters.Add("@Email", employeeVM.Email);
+        //        parameters.Add("@Birthdate", employeeVM.BirthDate);
+        //        parameters.Add("@PhoneNumber", employeeVM.PhoneNumber);
+        //        parameters.Add("@Address", employeeVM.Address);
+        //        parameters.Add("@DeptId", employeeVM.Department_Id);
 
-                var create = connection.Execute(procName, parameters, commandType: CommandType.StoredProcedure);
-                return create;
-            }
-        }
+        //        var create = connection.Execute(procName, parameters, commandType: CommandType.StoredProcedure);
+        //        return create;
+        //    }
+        //}
     }
 }

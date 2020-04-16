@@ -49,32 +49,17 @@ namespace Client.Controllers
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             if (employeeVM.Id == 0)
             {
-                var result = client.PostAsync("Employees/Post", byteContent).Result;
+                //var result = client.PostAsync("Employees/Post", byteContent).Result;
+                var result = client.PostAsync("Employees", byteContent).Result;
                 return Json(result);
             }
             else
             {
-                var result = client.PutAsync("Employees/Update/" + employeeVM.Id, byteContent).Result;
+                //var result = client.PutAsync("Employees/Update/" + employeeVM.Id, byteContent).Result;
+                var result = client.PutAsync("Employees/" + employeeVM.Id, byteContent).Result;
                 return Json(result);
             }
         }
-
-        //public async Task<JsonResult> GetById(int Id)
-        //{
-        //    HttpResponseMessage response = await client.GetAsync("Employees/GetById" + Id);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var data = await response.Content.ReadAsAsync<IList<EmployeeVM>>();
-        //        var dept = data.FirstOrDefault(t => t.Id == Id);
-        //        var json = JsonConvert.SerializeObject(dept, Formatting.None, new JsonSerializerSettings()
-        //        {
-        //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        //        });
-        //        return Json(json);
-        //    }
-        //    return Json("internal server error");
-        
-        //}
 
         public JsonResult GetById(int Id)
         {
@@ -93,22 +78,6 @@ namespace Client.Controllers
             }
             return Json(employee);
         }
-
-        //public async Task<JsonResult> GetById(int Id)
-        //{
-        //    HttpResponseMessage response = await client.GetAsync("Employees/GetById" + Id);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var data = await response.Content.ReadAsAsync<IList<EmployeeVM>>();
-        //        var employee = data.FirstOrDefault(t => t.Id == Id);
-        //        var json = JsonConvert.SerializeObject(employee, Formatting.None, new JsonSerializerSettings()
-        //        {
-        //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        //        });
-        //        return Json(json);
-        //    }
-        //    return Json("internal server error");
-        //}
 
         public JsonResult Delete(int Id)
         {

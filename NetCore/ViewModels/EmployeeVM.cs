@@ -18,7 +18,7 @@ namespace NetCore.ViewModels
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public bool IsDelete { get; set; }
-        public int DeptId { get; set; }
+        public int Department_Id { get; set; }
         public string DeptName { get; set; }
     }
 
