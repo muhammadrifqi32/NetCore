@@ -73,6 +73,9 @@ namespace NetCore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -112,6 +115,8 @@ namespace NetCore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -203,9 +208,8 @@ namespace NetCore.Migrations
 
             modelBuilder.Entity("NetCore.Models.Employee", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Email")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 
@@ -217,8 +221,6 @@ namespace NetCore.Migrations
 
                     b.Property<int>("Department_Id");
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("FirstName");
 
                     b.Property<bool>("IsDelete");
@@ -229,11 +231,21 @@ namespace NetCore.Migrations
 
                     b.Property<DateTime?>("UpdateDate");
 
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.HasIndex("Department_Id");
 
                     b.ToTable("TB_M_Employee");
+                });
+
+            modelBuilder.Entity("NetCore.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+
+                    b.ToTable("User");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

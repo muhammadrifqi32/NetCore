@@ -10,8 +10,8 @@ using NetCore.Context;
 namespace NetCore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200414114645_firstadd")]
-    partial class firstadd
+    [Migration("20200417043328_firstmodel")]
+    partial class firstmodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,9 @@ namespace NetCore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -114,6 +117,8 @@ namespace NetCore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -203,6 +208,48 @@ namespace NetCore.Migrations
                     b.ToTable("TB_M_Department");
                 });
 
+            modelBuilder.Entity("NetCore.Models.Employee", b =>
+                {
+                    b.Property<string>("Email")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<DateTime?>("DeleteDate");
+
+                    b.Property<int>("Department_Id");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<DateTime?>("UpdateDate");
+
+                    b.HasKey("Email");
+
+                    b.HasIndex("Department_Id");
+
+                    b.ToTable("TB_M_Employee");
+                });
+
+            modelBuilder.Entity("NetCore.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+
+                    b.ToTable("User");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -245,6 +292,14 @@ namespace NetCore.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NetCore.Models.Employee", b =>
+                {
+                    b.HasOne("NetCore.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("Department_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
