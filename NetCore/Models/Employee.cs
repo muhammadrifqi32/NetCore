@@ -25,6 +25,7 @@ namespace NetCore.Models
         public DateTime? DeleteDate { get; set; }
 
         public Department Department { get; set; }
+        
         [ForeignKey("Department")]
         public int Department_Id { get; set; }
     }

@@ -7,7 +7,6 @@ namespace NetCore.Base
 {
     public interface IEntity
     {
-        int Id { get; set; }
         bool IsDelete { get; set; }
         DateTime CreateDate { get; set; }
         Nullable<DateTime> UpdateDate { get; set; }

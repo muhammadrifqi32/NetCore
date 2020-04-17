@@ -78,7 +78,7 @@ function Save() {
             data: Department
         }).then((result) => {
             debugger;
-            if (result.statusCode == 201 || result.statusCode == 204) {
+            if (result.statusCode == 201 || result.statusCode == 204 || result.statusCode == 200) {
                 Swal.fire({
                     position: 'center',
                     type: 'success',

@@ -26,7 +26,7 @@ $(document).ready(function () {
             { "data": "email" },
             {
                 "data": "birthDate", "render": function (data) {
-                    return moment(data).tz("Asia/Jakarta").format('MMMM Do YYYY');
+                    return moment(data).tz("Asia/Jakarta").format('DD/MM/YYYY');
                 }
             },
             { "data": "phoneNumber" },
@@ -34,7 +34,7 @@ $(document).ready(function () {
             { "data": "deptName" },
             {
                 "data": "createDate", "render": function (data) {
-                    return moment(data).tz("Asia/Jakarta").format('MMMM Do YYYY, h:mm:ss a');
+                    return moment(data).tz("Asia/Jakarta").format('DD/MM/YYYY, h:mm:ss a');
                 }
             },
             {
@@ -44,7 +44,7 @@ $(document).ready(function () {
                     if (data == null) {
                         return dateupdate;
                     } else {
-                        return moment(data).tz("Asia/Jakarta").format('MMMM Do YYYY, h:mm:ss a');
+                        return moment(data).tz("Asia/Jakarta").format('DD/MM/YYYY, h:mm:ss a');
                     }
                 }
             },
@@ -207,7 +207,7 @@ function GetById(id) {
             $('#first').val(result.firstName);
             $('#last').val(result.lastName);
             $('#email').val(result.email);
-            $('#birthdate').val(result.birthDate);
+            $('#birthdate').val(moment(result.birthDate).format('YYYY-MM-DD'));
             $('#phone').val(result.phoneNumber);
             $('#address').val(result.address);
             $('#Department').val(result.department_Id);

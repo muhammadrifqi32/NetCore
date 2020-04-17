@@ -39,9 +39,14 @@ namespace NetCore.Base
         [HttpPost]
         public async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
-            await _repository.Post(entity);
-            return CreatedAtAction("Get", new { id = entity.Id }, entity);
-        }        
+            var post = await _repository.Post(entity);
+            if (post != null)
+            {
+                return Ok("Success Adding Data");
+            }
+            return BadRequest();
+            //return CreatedAtAction("Get", new { id = entity.Id }, entity);
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<TEntity>> Delete(int id)

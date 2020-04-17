@@ -17,7 +17,7 @@ namespace NetCore.Controllers
         private readonly DepartmentRepository _repository;
         public DepartmentsController(DepartmentRepository departmentRepository) : base(departmentRepository)
         {
-            this._repository = departmentRepository ;
+            this._repository = departmentRepository;
         }
 
         [HttpPut("{id}")]
@@ -30,8 +30,12 @@ namespace NetCore.Controllers
             }
             put.Name = entity.Name;
             put.UpdateDate = DateTime.Now;
-            await _repository.Put(put);
-            return Ok("Succesfully Updated Data");
+            var checkput = await _repository.Put(put);
+            if (checkput != null)
+            {
+                return Ok("Succesfully Updated Data");
+            }
+            return BadRequest("Failed to Updated Data");
         }
     }
 }

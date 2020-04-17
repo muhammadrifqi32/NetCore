@@ -46,7 +46,6 @@ namespace Client.Controllers
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
             if (departmentVM.Id == 0)
             {
                 var result = client.PostAsync("Departments/", byteContent).Result;
